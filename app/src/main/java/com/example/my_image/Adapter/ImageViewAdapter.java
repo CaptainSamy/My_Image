@@ -1,4 +1,4 @@
-package com.example.my_image;
+package com.example.my_image.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.my_image.Model.Photo;
+import com.example.my_image.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

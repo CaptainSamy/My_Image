@@ -1,5 +1,6 @@
-package com.example.my_image;
+package com.example.my_image.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -17,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.my_image.Adapter.ImageViewAdapter;
 import com.example.my_image.Model.FlickrPhoto;
 import com.example.my_image.Model.Photo;
+import com.example.my_image.R;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -54,7 +59,25 @@ public class MainActivity extends AppCompatActivity {
                 }, 2000);
             }
         });
+
         GetData();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.more:
+                Intent intent = new Intent(MainActivity.this, InformationActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void GetData() {
@@ -82,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         new ImageViewAdapter.AdapterListener() {
                             @Override
                             public void OnClick(int position) {
-                                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                                 intent.putExtra("position",position);
                                 startActivity(intent);
                             }

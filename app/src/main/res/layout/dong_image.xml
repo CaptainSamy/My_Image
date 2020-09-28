@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:layout_marginLeft="8dp"
+    app:cardBackgroundColor="#ffffff"
     android:layout_marginRight="8dp"
-    android:background="#ffffff"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="8dp"
     android:layout_height="wrap_content">
@@ -36,7 +36,7 @@
                 android:text="View"
                 android:textSize="15sp"
                 android:id="@+id/textviewView"
-                android:textColor="#8B0000"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="view"
                 android:textSize="15sp"
-                android:textColor="#8B0000"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

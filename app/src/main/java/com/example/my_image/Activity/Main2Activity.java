@@ -1,4 +1,4 @@
-package com.example.my_image;
+package com.example.my_image.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -10,11 +10,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +28,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.my_image.Adapter.ViewpagerAdapter;
 import com.example.my_image.Model.FlickrPhoto;
 import com.example.my_image.Model.Photo;
+import com.example.my_image.R;
+import com.example.my_image.Helper.SaveImageHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -81,6 +87,7 @@ public class Main2Activity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         Intent intent = this.getIntent();
         position = intent.getIntExtra("position", 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getData();
 
         // xin quyền lưu vào bộ nhớ
@@ -90,16 +97,20 @@ public class Main2Activity extends AppCompatActivity {
 
             },PERMISSION_REQUEST_CODE);
 
-        //
+        //float action button
+        final Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_rotation1);
+        final Animation animation2 = AnimationUtils.loadAnimation(this, R.anim.anim_rotation2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (An_Hien == false){
                     Hien();
                     An_Hien = true;
+                    fab.startAnimation(animation);
                 } else {
                     An();
                     An_Hien = false;
+                    fab.startAnimation(animation2);
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.example.my_image;
+package com.example.my_image.Helper;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;

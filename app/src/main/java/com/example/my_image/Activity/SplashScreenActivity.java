@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.example.my_image.R;
 
-public class Man_Hinh_Chao_Activity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
 
     @Override
@@ -28,7 +28,7 @@ public class Man_Hinh_Chao_Activity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Man_Hinh_Chao_Activity.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                 startActivity(intent);
                 finish();
             }

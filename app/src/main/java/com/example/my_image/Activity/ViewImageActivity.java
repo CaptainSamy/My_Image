@@ -10,7 +10,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -44,17 +43,17 @@ import java.util.UUID;
 
 import dmax.dialog.SpotsDialog;
 
-public class Main2Activity extends AppCompatActivity {
+public class ViewImageActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1000 ;
-    FloatingActionButton fab, fab1, fab2;
+    private FloatingActionButton fab, fab1, fab2;
     public ViewPager viewPager;
-    ViewpagerAdapter viewpagerAdapter;
-    TextView tv1, tv2;
-    boolean An_Hien = false;
-    AlertDialog dialog;
-    String link; // phục vụ cho việc tải ảnh
+    private ViewpagerAdapter viewpagerAdapter;
+    private TextView tv1, tv2;
+    private boolean An_Hien = false;
+    private AlertDialog dialog;
+    private String link; // phục vụ cho việc tải ảnh
     public int position; // nhận position của ảnh đã click bên main
-    List<Photo> photos;
+    private List<Photo> photos;
 
     // người dùng đã cấp quyền hay chưa
     @Override
@@ -120,14 +119,14 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // xin quyền lưu trữ từ người dùng nếu trước đó họ chưa cấp quyền
-                if (ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(Main2Activity.this, "",Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.checkSelfPermission(ViewImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(ViewImageActivity.this, "",Toast.LENGTH_SHORT).show();
                     requestPermissions(new String[]{
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                     }, PERMISSION_REQUEST_CODE);
                     return;
                 } else {
-                    dialog = new SpotsDialog.Builder().setContext(Main2Activity.this).build();
+                    dialog = new SpotsDialog.Builder().setContext(ViewImageActivity.this).build();
                     dialog.show();
                     dialog.setMessage("Downloading...");
 
@@ -147,14 +146,14 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // xin quyền lưu trữ từ người dùng nếu trước đó họ chưa cấp quyền
-                if (ActivityCompat.checkSelfPermission(Main2Activity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(Main2Activity.this, "",Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.checkSelfPermission(ViewImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(ViewImageActivity.this, "",Toast.LENGTH_SHORT).show();
                     requestPermissions(new String[]{
                             Manifest.permission.WRITE_EXTERNAL_STORAGE
                     }, PERMISSION_REQUEST_CODE);
                     return;
                 } else {
-                    dialog = new SpotsDialog.Builder().setContext(Main2Activity.this).build();
+                    dialog = new SpotsDialog.Builder().setContext(ViewImageActivity.this).build();
                     dialog.show();
                     dialog.setMessage("Downloading...");
 
@@ -173,13 +172,13 @@ public class Main2Activity extends AppCompatActivity {
 
     private void getData() {
         // thông báo trạng thái khi đợi dữ liệu trả về
-        final ProgressDialog loading = new ProgressDialog(Main2Activity.this);
+        final ProgressDialog loading = new ProgressDialog(ViewImageActivity.this);
         loading.setMessage("Loading...");
         loading.show();
         //RequestQueue: nơi giữ các request trước khi gửi
         //tạo một RequestQueue bằng lệnh
         RequestQueue requestQueue =
-                Volley.newRequestQueue(Main2Activity.this);
+                Volley.newRequestQueue(ViewImageActivity.this);
         //StringRequest: kế thừa từ Request, là class đại diện cho request trả về String
         // khai báo stringRepuest, phương thức POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -193,7 +192,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 photos = flickrPhoto.getPhotos().getPhoto(); // lấy ảnh từ flick để cho vào list ảnh gắn lên view
 
-                viewpagerAdapter = new ViewpagerAdapter(Main2Activity.this, photos); // gắn dữ liệu vào adapter
+                viewpagerAdapter = new ViewpagerAdapter(ViewImageActivity.this, photos); // gắn dữ liệu vào adapter
                 link = photos.get(viewPager.getCurrentItem()).getUrlL(); // link ảnh phục vụ cho việc tải
                 viewPager.setAdapter(viewpagerAdapter);
                 viewPager.setCurrentItem(position, true);
@@ -220,7 +219,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Main2Activity.this, error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewImageActivity.this, error.toString(),Toast.LENGTH_LONG).show();
             }
         }) {
             @Override

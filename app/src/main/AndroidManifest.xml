@@ -14,17 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.InformationActivity"
-            android:parentActivityName=".Activity.MainActivity"></activity>
-        <activity android:name=".Activity.Main2Activity"
-            android:parentActivityName=".Activity.MainActivity"/>
-        <activity android:name=".Activity.Man_Hinh_Chao_Activity">
+            android:parentActivityName=".Activity.HomeActivity"></activity>
+        <activity android:name=".Activity.ViewImageActivity"
+            android:parentActivityName=".Activity.HomeActivity"/>
+        <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.HomeActivity" />
     </application>
 
 </manifest>

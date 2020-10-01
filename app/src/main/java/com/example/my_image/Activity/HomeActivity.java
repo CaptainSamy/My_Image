@@ -33,10 +33,10 @@ import java.util.Map;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
-    ImageViewAdapter imageViewAdapter;
-    RecyclerView recyclerViewImage;
-    SwipeRefreshLayout swipeRefreshLayout;
+public class HomeActivity extends AppCompatActivity {
+    private ImageViewAdapter imageViewAdapter;
+    private RecyclerView recyclerViewImage;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private static final int NUM_COLUMNS = 2;
 
     @Override
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.more:
-                Intent intent = new Intent(MainActivity.this, InformationActivity.class);
+                Intent intent = new Intent(HomeActivity.this, InformationActivity.class);
                 startActivity(intent);
                 return true;
         }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         //RequestQueue: nơi giữ các request trước khi gửi
         //tạo một RequestQueue bằng lệnh
         RequestQueue requestQueue =
-                Volley.newRequestQueue(MainActivity.this);
+                Volley.newRequestQueue(HomeActivity.this);
         //StringRequest: kế thừa từ Request, là class đại diện cho request trả về String
         // khai báo stringRepuest, phương thức POST
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         new ImageViewAdapter.AdapterListener() {
                             @Override
                             public void OnClick(int position) {
-                                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                                Intent intent = new Intent(HomeActivity.this, ViewImageActivity.class);
                                 intent.putExtra("position",position);
                                 startActivity(intent);
                             }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 // nơi nhận các lỗi xảy ra khi request
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(MainActivity.this, error.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(HomeActivity.this, error.toString(),Toast.LENGTH_LONG).show();
             }
         }) {
             @Override

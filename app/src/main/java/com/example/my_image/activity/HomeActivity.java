@@ -1,13 +1,19 @@
 package com.example.my_image.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +30,7 @@ import com.example.my_image.adapter.ImageViewAdapter;
 import com.example.my_image.model.FlickrPhoto;
 import com.example.my_image.model.Photo;
 import com.example.my_image.R;
+import com.example.my_image.utils.Network;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -38,11 +45,16 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerViewImage;
     private SwipeRefreshLayout swipeRefreshLayout;
     private static final int NUM_COLUMNS = 2;
+    public boolean networkConnect;
+    public AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         recyclerViewImage = findViewById(R.id.recyclerview);
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
@@ -140,5 +152,36 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest); // thêm vào nơi giữ các request để gửi lên server
+    }
+
+    //check network
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int status = Network.getConnectionStatusString(context);
+            networkConnect = status == Network.TYPE_STATUS_NOT_CONNECTED;
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                if (status == Network.TYPE_STATUS_NOT_CONNECTED) {
+                    showDialogNetwork();
+                } else {
+
+                }
+            }
+        }
+    };
+
+    private void showDialogNetwork() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                dialog.dismiss();
+            }
+        });
+
+        // Create the AlertDialog
+        dialog = builder.create();
+        dialog.show();
     }
 }

@@ -10,8 +10,13 @@ import android.Manifest;
 import android.app.AlertDialog;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +37,7 @@ import com.example.my_image.model.FlickrPhoto;
 import com.example.my_image.model.Photo;
 import com.example.my_image.R;
 import com.example.my_image.helper.SaveImageHelper;
+import com.example.my_image.utils.Network;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -50,10 +56,11 @@ public class ViewImageActivity extends AppCompatActivity {
     private ViewpagerAdapter viewpagerAdapter;
     private TextView tv1, tv2;
     private boolean An_Hien = false;
-    private AlertDialog dialog;
+    public AlertDialog dialog;
     private String link; // phục vụ cho việc tải ảnh
     public int position; // nhận position của ảnh đã click bên main
     private List<Photo> photos;
+    public boolean networkConnect;
 
     // người dùng đã cấp quyền hay chưa
     @Override
@@ -77,6 +84,9 @@ public class ViewImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        registerReceiver(broadcastReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         fab = findViewById(R.id.fab);
         fab1 = findViewById(R.id.fab1);
         tv1 = findViewById(R.id.tv1);
@@ -251,6 +261,36 @@ public class ViewImageActivity extends AppCompatActivity {
         fab2.show();
         tv1.setVisibility(View.VISIBLE);
         tv2.setVisibility(View.VISIBLE);
+    }
+
+    //check network
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int status = Network.getConnectionStatusString(context);
+            networkConnect = status == Network.TYPE_STATUS_NOT_CONNECTED;
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                if (status == Network.TYPE_STATUS_NOT_CONNECTED) {
+                    showDialogNetwork();
+                } else {
+
+                }
+            }
+        }
+    };
+
+    private void showDialogNetwork() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        // Add the buttons
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                dialog.dismiss();
+            }
+        });
+
+        // Create the AlertDialog
+        dialog.show();
     }
 
 }

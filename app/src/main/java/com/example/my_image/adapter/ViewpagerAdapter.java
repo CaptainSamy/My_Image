@@ -1,4 +1,4 @@
-package com.example.my_image.Adapter;
+package com.example.my_image.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.my_image.Model.Photo;
+import com.example.my_image.model.Photo;
 import com.example.my_image.R;
 import com.squareup.picasso.Picasso;
 

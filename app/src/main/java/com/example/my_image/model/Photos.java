@@ -1,4 +1,4 @@
-package com.example.my_image.Model;
+package com.example.my_image.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

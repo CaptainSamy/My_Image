@@ -1,4 +1,4 @@
-package com.example.my_image.Activity;
+package com.example.my_image.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -27,11 +27,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.my_image.Adapter.ViewpagerAdapter;
-import com.example.my_image.Model.FlickrPhoto;
-import com.example.my_image.Model.Photo;
+import com.example.my_image.adapter.ViewpagerAdapter;
+import com.example.my_image.model.FlickrPhoto;
+import com.example.my_image.model.Photo;
 import com.example.my_image.R;
-import com.example.my_image.Helper.SaveImageHelper;
+import com.example.my_image.helper.SaveImageHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;

@@ -1,4 +1,4 @@
-package com.example.my_image.Activity;
+package com.example.my_image.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.my_image.Adapter.ImageViewAdapter;
-import com.example.my_image.Model.FlickrPhoto;
-import com.example.my_image.Model.Photo;
+import com.example.my_image.adapter.ImageViewAdapter;
+import com.example.my_image.model.FlickrPhoto;
+import com.example.my_image.model.Photo;
 import com.example.my_image.R;
 import com.google.gson.Gson;
 
